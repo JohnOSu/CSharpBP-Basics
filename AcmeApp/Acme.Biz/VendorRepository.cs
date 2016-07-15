@@ -8,6 +8,8 @@ namespace Acme.Biz
 {
     public class VendorRepository
     {
+        private List<Vendor> vendors;
+
         /// <summary>
         /// Retrieve one vendor.
         /// </summary>
@@ -26,6 +28,53 @@ namespace Acme.Biz
                 vendor.Email = "abc@abc.com";
             }
             return vendor;
+        }
+
+        /// <summary>
+        /// Retrieve all of the approved vendors.
+        /// </summary>
+        /// <returns></returns>
+        public List<Vendor> Retrieve()
+        {
+            if (vendors == null)
+            {
+                vendors = new List<Vendor>();
+
+                vendors.Add(new Vendor() { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" });
+                vendors.Add(new Vendor() { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" });
+            }
+
+            foreach (var vendor in vendors)
+            {
+                Console.WriteLine(vendor);
+            }
+            
+            return vendors;
+        }
+
+        public Dictionary<string, Vendor> RetrieveWithKeys()
+        {
+            var vendors = new Dictionary<string, Vendor>()
+            {
+                { "ABC Corp", new Vendor() { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" } },
+                { "XYZ Inc", new Vendor() { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" } }
+            };
+            
+
+            foreach (var vendor in vendors)
+            {
+                Console.WriteLine(vendor);
+            }
+
+            return vendors;
+        }
+
+
+        public T RetrieveValue<T>(string sql, T defaultValue)
+        {
+            T value = defaultValue;
+
+            return value;
         }
 
         public bool Save(Vendor vendor)
